@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function(){
     const sections = document.querySelectorAll('.products-code-start');
 
     sections.forEach(section => {
-        const menu = section.querySelector('.product-filter-brands ul');
         const menuItems = section.querySelectorAll('.product-filter-brands ul li');
         const productCards = section.querySelectorAll('.card-new-products');
 
@@ -55,3 +54,44 @@ document.addEventListener("DOMContentLoaded", function(){
     })
 })
 
+
+// Slider de patrocinadores
+
+window.addEventListener("DOMContentLoaded", () => {
+    const slider = document.querySelector('.slider-sponsors');
+    const images = slider.querySelectorAll('img');
+
+    images.forEach(image => {
+        const clone = image.cloneNode(true);
+        slider.appendChild(clone);
+    });
+
+    const totalWidth = images.lenght * (images[0].offsetWidth + 20);
+
+    slider.style.width = `${totalWidth}px`;
+
+    let currentPosition = 0;
+
+    const moveSlider = () => {
+        currentPosition -= 1;
+        if(currentPosition <= -totalWidth/2){
+            currentPosition = 0;
+        }
+
+        slider.style.transform = `translateX(${currentPosition}px)`;
+        requestAnimationFrame(moveSlider);
+    }
+
+    requestAnimationFrame(moveSlider);
+})
+
+/* Slider Depoimentos */
+
+window.addEventListener("DOMContentLoaded", () => {
+    const testimonials = document.querySelectorAll('.testimonial');
+    const controls = document.querySelectorAll('.controls-testimonails span');
+    const firstTestimonial = testimonials[0];
+    const firstControl = controls[0];
+
+    
+})
