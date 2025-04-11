@@ -89,9 +89,38 @@ window.addEventListener("DOMContentLoaded", () => {
 
 window.addEventListener("DOMContentLoaded", () => {
     const testimonials = document.querySelectorAll('.testimonial');
-    const controls = document.querySelectorAll('.controls-testimonails span');
+    const controls = document.querySelectorAll('.controls-testimonial span');
     const firstTestimonial = testimonials[0];
     const firstControl = controls[0];
 
-    
+    testimonials.forEach(testimonial => testimonial.style.display = 'none');
+    firstTestimonial.style.display = 'block';
+
+    controls.forEach(control => {
+        control.addEventListener("click", () => {
+            const targetSlide = control.getAttribute('data-slide');
+            controls.forEach(c => c.classList.remove('active-testimonial'));
+            control.classList.add('active-testimonial');
+
+            testimonials.forEach(testimonial => testimonial.style.display = 'none');
+
+            const testimonialShow = document.querySelector(`.testimonial[data-slide="${targetSlide}"]`);
+
+            testimonialShow.style.display = "block"
+        })
+    })
+
+    firstControl.classList.add("active-testimonial");
 })
+
+
+// Manipulação do carrinho de produtos
+
+const productsArray = [];
+
+function increaseQuantity(event) {
+    const quantityElement = event.target.parentElement.querySelector(".number-quantity");
+    const quantity = parseInt(quantityElement.textContent);
+    quantityElement.textContent = quantity + 1;
+}
+
