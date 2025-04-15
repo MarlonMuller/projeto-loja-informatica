@@ -93,9 +93,12 @@
                                 </div>
                             </div>
                             <div class="line-form">
-                                <div class="group-form">
+                                <div class="group-form input-cep">
                                     <label>CEP<span>*</span></label>
                                     <input type="text" id="cep" placeholder="CEP"/>
+                                    <div class="search-cep">
+                                        <img src="assets/search.svg" alt="Pesquisa" onclick="buscarCep()"/>
+                                    </div>
                                 </div>
                                 <div class="group-form">
                                     <label>Cidade<span>*</span></label>
@@ -106,8 +109,69 @@
                                     <input type="text" id="state" placeholder="Estado"/>
                                 </div>
                             </div>
+                            <div class="line-form">
+                                <div class="group-form">
+                                    <label>Bairro<span>*</span></label>
+                                    <input type="text" id="neighborhood" placeholder="Bairro"/>
+                                </div>
+                                <div class="group-form">
+                                    <label>Rua<span>*</span></label>
+                                    <input type="text" id="street" placeholder="Rua"/>
+                                </div>
+                                <div class="group-form">
+                                    <label>Número/complemento<span>*</span></label>
+                                    <input type="text" id="number" placeholder="Número/complemento"/>
+                                </div>
+                            </div>
                         </div>
                     </form>
+                    <div class="info-products-order">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Preço</th>
+                                    <th>Qtde</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="product-cart">
+                                            <img src="assets/cpu-products/cpu-1.png" width="100px">
+                                            <span>Título do produto escolhido - 32GB RAM, 1TB SSD, Windows 10 Home</span>
+                                        </div>
+                                    </td>
+                                    <td>R$ 4.349,00</td>
+                                    <td>3</td>
+                                    <td>R$ 4.349,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="send-order">
+                            <input type="button" value="Limpar carrinho"/>
+                            <input type="button" value="Reservar pedido"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="infos-order">
+                    <h1>Resumo</h1>
+                    <h2>Resumo da sua compra</h2>
+                    <h3>Nesse resumo incluímos o preço dos itens com o frete.</h3>
+                    <div class="line-info-order">
+                        <p>Subtotal</p>
+                        <p>R$ <span id="subtotal-value">0</span></p>
+                    </div>
+                    <div class="line-info-order">
+                        <p>Envio</p>
+                        <p>R$ <span id="shipment-value">150</span></p>
+                    </div>
+                    <span class="legend-order">(7 dias úteis para entrega em qualquer parte da cidade)</span>
+                    <div class="line-info-order">
+                        <p>Total do pedido</p>
+                        <p class="total-order">R$ <span id="total-order-value">0</span></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -134,8 +198,6 @@
             </div>
         </div>
     </section>
-
-    
 
     <footer>
         <div class="container">
@@ -177,7 +239,6 @@
         </div>
     </footer>
 
-    <p>Semana 8 - Parei em: 1:12:00</p>
     <script src="script.js"></script>
 </body>
 
