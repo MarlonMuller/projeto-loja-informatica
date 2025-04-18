@@ -136,29 +136,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="product-cart">
-                                            <img src="assets/cpu-products/cpu-1.png" width="100px">
-                                            <span>Título do produto escolhido - 32GB RAM, 1TB SSD, Windows 10 Home</span>
-                                        </div>
-                                    </td>
-                                    <td>R$ 4.349,00</td>
-                                    <td>3</td>
-                                    <td>R$ 4.349,00</td>
-                                </tr>
                             </tbody>
                         </table>
                         <div class="send-order">
                             <input type="button" value="Limpar carrinho"/>
-                            <input type="button" value="Reservar pedido"/>
+                            <input type="button" value="Reservar pedido" onclick="finalizarPedido()"/>
                         </div>
                     </div>
                 </div>
                 <div class="infos-order">
                     <h1>Resumo</h1>
                     <h2>Resumo da sua compra</h2>
-                    <h3>Nesse resumo incluímos o preço dos itens com o frete.</h3>
+                    <h3>Nesse resumo incluímos o preço dos <br/> itens com o frete.</h3>
                     <div class="line-info-order">
                         <p>Subtotal</p>
                         <p>R$ <span id="subtotal-value">0</span></p>

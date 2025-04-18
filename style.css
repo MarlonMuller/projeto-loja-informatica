@@ -603,17 +603,7 @@ footer .container {
     gap: 20px;
 }
 
-.infos-order {
-    background-color: #f5f7ff;
-    padding: 55px 35px;
-    box-sizing: border-box;
-    height: 400px;
-}
 
-.infos-order h2 {
-    font-size: 18px;
-    font-weight: normal;
-}
 
 table {
     width: 100%;
@@ -645,6 +635,45 @@ tbody tr td:first-child {
     justify-content: center;
     align-items: center;
 }
+
+.infos-order {
+    background-color: #f5f7ff;
+    padding: 55px 35px;
+    box-sizing: border-box;
+    height: 400px;
+}
+
+.infos-order h2 {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.infos-order h3 {
+    font-size: 14px;
+    color: #666666;
+    font-weight: normal;
+    margin-top: 15px;
+    border-bottom: 1px solid #cacdd8;
+    padding-bottom: 5px;
+}
+
+.line-info-order {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.legend-order {
+    font-size: 10px;
+    color: #a2a6b0;
+}
+
+.total-order {
+    font-size: 18px;
+}
+
 
 /* Estilos para telas médias */
 

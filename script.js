@@ -66,7 +66,7 @@ window.addEventListener("DOMContentLoaded", () => {
         slider.appendChild(clone);
     });
 
-    const totalWidth = images.lenght * (images[0].offsetWidth + 20);
+    const totalWidth = images.length * (images[0].offsetWidth + 20);
 
     slider.style.width = `${totalWidth}px`;
 
@@ -142,6 +142,8 @@ function addProductCard (event) {
     const productCard = event.target.closest('.card-new-products');
     const productName = productCard.querySelector('.info-product h3').textContent;
     const priceText = productCard.querySelector('.new-price').textContent;
+    const productImg = productCard.querySelector(".img-product");
+    const srcProduct = productImg.getAttribute("src");
     const price = parseFloat(priceText.replace('R$', ''));
 
     const quantityElement = productCard.querySelector('.number-quantity');
@@ -157,6 +159,7 @@ function addProductCard (event) {
             productsArray.push({
                 productName: productName,
                 price: price,
+                productImg: srcProduct,
                 quantity: quantity
             })
         }
@@ -165,6 +168,8 @@ function addProductCard (event) {
             productsArray.splice(existingProductIndex, 1);
         }
     }
+
+    localStorage.setItem("productsArray", JSON.stringify(productsArray))
 
     updateCart();
 }
@@ -195,6 +200,10 @@ const inputCity = document.querySelector("#city");
 const inputState = document.querySelector("#state");
 const inputNeighborhood = document.querySelector("#neighborhood");
 const inputNumber = document.querySelector("#number");
+const savedProductsArray = JSON.parse(localStorage.getItem("productsArray"));
+const totalOrder = savedProductsArray.reduce((accumulator, currentProduct) => {
+    return accumulator + currentProduct.quantity * currentProduct.price;
+})
 
 function buscarCep(){
     const typedCep = inputCep.value.trim().replace(/\D/g, "");
@@ -211,6 +220,68 @@ function buscarCep(){
         inputNeighborhood.value = data.bairro;
         inputStreet.value = data.logradouro;
     }).catch((error) => {
-        console.error('Erro': error)
+        console.error('Erro:', error)
     })
+}
+
+window.addEventListener("DOMContentLoaded", function(){
+    const tbody = document.querySelector(".info-products-order tbody");
+    
+    for(const product of savedProductsArray){
+        const row = document.createElement("tr");
+        const nameCell = document.createElement("td");
+        nameCell.innerHTML =  `<div class="product-cart">
+                                  <img src="${product.productImg}" alt="${product.productName}" width="100px"/>
+                                  ${product.productName}
+                                  </div>`;
+
+        const priceCell = document.createElement("td");
+        priceCell.textContent = `R$ ${product.price.toFixed(2)}`;
+
+        const quantityCell = document.createElement("td");
+        quantityCell.textContent = product.quantity;
+
+        const subtotalCell = document.createElement("td");
+        const subtotal = product.price * product.quantity;
+        subtotalCell.textContent = `R$ ${subtotal.toFixed(2)}`
+
+        row.appendChild(nameCell);
+        row.appendChild(priceCell);
+        row.appendChild(quantityCell);
+        row.appendChild(subtotalCell);
+        tbody.appendChild(row);
+    }
+})
+
+function finalizarPedido(){
+    const fullName = document.querySelector("#fullName").value;
+    const rg = document.querySelector("rg").value;
+    const cpf = document.querySelector("cpf").value;
+
+    const cep = inputCep.value;
+    const street = inputStreet.value;
+    const city = inputCity.value;
+    const state = inputState.value;
+    const neighborhood = inputState.value;
+    const number = inputNumber.value;
+
+
+    let textFormatted = `Olá, gostaria de fazer um pedido para a loja
+    Meus dados são:
+    Nome: ${fullName}
+    RG: ${rg}
+    CPF: ${cpf}
+    Endereço: Rua ${street}, cidade: ${city}, estado: ${state}, bairro: ${neighborhood}, número/complemento: ${number}, CEP: ${cep}
+    Os produtos que eu escolhi são:`;
+
+    savedProductsArray.forEach((product) => {
+        textFormatted += `
+        Nome do produto: ${product.productName},
+        Preço: R$ ${product.price},
+        Quantidade: ${product.quantity}`
+    });
+
+    textFormatted = `Total do pedido: R$ ${totalOrder}`
+
+    console.log(textFormatted)
 }
