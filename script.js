@@ -59,59 +59,65 @@ document.addEventListener("DOMContentLoaded", function(){
 
 window.addEventListener("DOMContentLoaded", () => {
     const slider = document.querySelector('.slider-sponsors');
-    const images = slider.querySelectorAll('img');
+    if(slider) {
+        const images = slider.querySelectorAll('img');
 
-    images.forEach(image => {
-        const clone = image.cloneNode(true);
-        slider.appendChild(clone);
-    });
-
-    const totalWidth = images.length * (images[0].offsetWidth + 20);
-
-    slider.style.width = `${totalWidth}px`;
-
-    let currentPosition = 0;
-
-    const moveSlider = () => {
-        currentPosition -= 1;
-        if(currentPosition <= -totalWidth/2){
-            currentPosition = 0;
-        }
-
-        slider.style.transform = `translateX(${currentPosition}px)`;
+        images.forEach(image => {
+            const clone = image.cloneNode(true);
+            slider.appendChild(clone);
+        });
+    
+        const totalWidth = images.length * (images[0].offsetWidth + 20);
+    
+        slider.style.width = `${totalWidth}px`;
+    
+        let currentPosition = 0;
+    
+        const moveSlider = () => {
+            currentPosition -= 1;
+            if(currentPosition <= -totalWidth/2){
+                currentPosition = 0;
+            }
+    
+            slider.style.transform = `translateX(${currentPosition}px)`;
+            requestAnimationFrame(moveSlider);
+        };
+    
         requestAnimationFrame(moveSlider);
     }
 
-    requestAnimationFrame(moveSlider);
 })
 
 /* Slider Depoimentos */
 
 window.addEventListener("DOMContentLoaded", () => {
     const testimonials = document.querySelectorAll('.testimonial');
-    const controls = document.querySelectorAll('.controls-testimonial span');
-    const firstTestimonial = testimonials[0];
-    const firstControl = controls[0];
-
-    testimonials.forEach(testimonial => testimonial.style.display = 'none');
-    firstTestimonial.style.display = 'block';
-
-    controls.forEach(control => {
-        control.addEventListener("click", () => {
-            const targetSlide = control.getAttribute('data-slide');
-            controls.forEach(c => c.classList.remove('active-testimonial'));
-            control.classList.add('active-testimonial');
-
-            testimonials.forEach(testimonial => testimonial.style.display = 'none');
-
-            const testimonialShow = document.querySelector(`.testimonial[data-slide="${targetSlide}"]`);
-
-            testimonialShow.style.display = "block"
+    if(testimonials.length > 0){
+        const controls = document.querySelectorAll('.controls-testimonial span');
+        const firstTestimonial = testimonials[0];
+        const firstControl = controls[0];
+    
+        testimonials.forEach(testimonial => testimonial.style.display = 'none');
+        firstTestimonial.style.display = 'block';
+    
+        controls.forEach(control => {
+            control.addEventListener("click", () => {
+                const targetSlide = control.getAttribute('data-slide');
+                controls.forEach(c => c.classList.remove('active-testimonial'));
+                control.classList.add('active-testimonial');
+    
+                testimonials.forEach(testimonial => testimonial.style.display = 'none');
+    
+                const testimonialShow = document.querySelector(`.testimonial[data-slide="${targetSlide}"]`);
+    
+                testimonialShow.style.display = "block"
+            })
         })
-    })
+    
+        firstControl.classList.add("active-testimonial");
+    }
 
-    firstControl.classList.add("active-testimonial");
-})
+});
 
 
 // Manipulação do carrinho de produtos
@@ -201,11 +207,11 @@ const inputState = document.querySelector("#state");
 const inputNeighborhood = document.querySelector("#neighborhood");
 const inputNumber = document.querySelector("#number");
 const savedProductsArray = JSON.parse(localStorage.getItem("productsArray"));
-const totalOrder = savedProductsArray.reduce((accumulator, currentProduct) => {
+const totalOrder = savedProductsArray ? savedProductsArray.reduce((accumulator, currentProduct) => {
     return accumulator + currentProduct.quantity * currentProduct.price;
-})
+}, 0) : 0;
 
-function buscarCep(){
+function searchCEP(){
     const typedCep = inputCep.value.trim().replace(/\D/g, "");
     
     fetch(`https://viacep.com.br/ws/${typedCep}/json/`).then((response)=>{
@@ -226,43 +232,46 @@ function buscarCep(){
 
 window.addEventListener("DOMContentLoaded", function(){
     const tbody = document.querySelector(".info-products-order tbody");
+
+    if(tbody && savedProductsArray) {
+        for(const product of savedProductsArray){
+            const row = document.createElement("tr");
+            const nameCell = document.createElement("td");
+            nameCell.innerHTML =  `<div class="product-cart">
+                                      <img src="${product.productImg}" alt="${product.productName}" width="100px"/>
+                                      ${product.productName}
+                                      </div>`;
     
-    for(const product of savedProductsArray){
-        const row = document.createElement("tr");
-        const nameCell = document.createElement("td");
-        nameCell.innerHTML =  `<div class="product-cart">
-                                  <img src="${product.productImg}" alt="${product.productName}" width="100px"/>
-                                  ${product.productName}
-                                  </div>`;
-
-        const priceCell = document.createElement("td");
-        priceCell.textContent = `R$ ${product.price.toFixed(2)}`;
-
-        const quantityCell = document.createElement("td");
-        quantityCell.textContent = product.quantity;
-
-        const subtotalCell = document.createElement("td");
-        const subtotal = product.price * product.quantity;
-        subtotalCell.textContent = `R$ ${subtotal.toFixed(2)}`
-
-        row.appendChild(nameCell);
-        row.appendChild(priceCell);
-        row.appendChild(quantityCell);
-        row.appendChild(subtotalCell);
-        tbody.appendChild(row);
+            const priceCell = document.createElement("td");
+            priceCell.textContent = `R$ ${product.price.toFixed(2)}`;
+    
+            const quantityCell = document.createElement("td");
+            quantityCell.textContent = product.quantity;
+    
+            const subtotalCell = document.createElement("td");
+            const subtotal = product.price * product.quantity;
+            subtotalCell.textContent = `R$ ${subtotal.toFixed(2)}`
+    
+            row.appendChild(nameCell);
+            row.appendChild(priceCell);
+            row.appendChild(quantityCell);
+            row.appendChild(subtotalCell);
+            tbody.appendChild(row);
+        }
     }
+
 })
 
-function finalizarPedido(){
+function finishOrder(){
     const fullName = document.querySelector("#fullName").value;
-    const rg = document.querySelector("rg").value;
-    const cpf = document.querySelector("cpf").value;
+    const rg = document.querySelector("#rg").value;
+    const cpf = document.querySelector("#cpf").value;
 
     const cep = inputCep.value;
     const street = inputStreet.value;
     const city = inputCity.value;
     const state = inputState.value;
-    const neighborhood = inputState.value;
+    const neighborhood = inputNeighborhood.value;
     const number = inputNumber.value;
 
 
@@ -281,7 +290,32 @@ function finalizarPedido(){
         Quantidade: ${product.quantity}`
     });
 
-    textFormatted = `Total do pedido: R$ ${totalOrder}`
+    textFormatted += `
+    Total do pedido: R$ ${totalOrder}`
 
-    console.log(textFormatted)
+    const textEncoded = encodeURIComponent(textFormatted);
+
+    window.open(`https://wa.me/5551999999999?text=${textEncoded}`);
 }
+
+function clearCart(){
+    localStorage.removeItem("productsArray");
+    inputCep.value = "";
+    inputStreet.value = "";
+    inputCity.value = "";
+    inputState.value = "";
+    inputNeighborhood.value = "";
+    inputNumber.value = "";
+    location.reload();
+}
+
+window.addEventListener("DOMContentLoaded", function(){
+    const subtotal = document.querySelector("#subtotal-value");
+    subtotal.textContent = totalOrder;
+
+    const shipmentValue = document.querySelector("#shipment-value").textContent;
+
+    const totalOrderfield = document.querySelector("#total-order-value");
+
+    totalOrderfield.textContent = Number(totalOrder) + Number(shipmentValue);
+})
