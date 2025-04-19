@@ -123,6 +123,20 @@ window.addEventListener("DOMContentLoaded", () => {
 // Manipulação do carrinho de produtos
 
 const productsArray = [];
+const neighborhoodShipment = [
+    {
+        neighborhood: "Centro",
+        shipment: 100
+    },
+    {
+        neighborhood: "Savassi",
+        shipment: 180
+    },
+    {
+        neighborhood: "Lourdes",
+        shipment: 150
+    }
+]
 
 function increaseQuantity(event) {
     const quantityElement = event.target.parentElement.querySelector(".number-quantity");
@@ -139,9 +153,9 @@ function decreaseQuantity(event){
     }
 }
 
-function updateCart() {
+function updateCart(quantityProducts) {
     const cart = document.querySelector('.items-cart');
-    cart.textContent = productsArray.length;
+    cart.textContent = quantityProducts;
 }
 
 function addProductCard (event) {
@@ -177,7 +191,7 @@ function addProductCard (event) {
 
     localStorage.setItem("productsArray", JSON.stringify(productsArray))
 
-    updateCart();
+    updateCart(productsArray ? productsArray.length : 0);
 }
 
 
@@ -210,6 +224,13 @@ const savedProductsArray = JSON.parse(localStorage.getItem("productsArray"));
 const totalOrder = savedProductsArray ? savedProductsArray.reduce((accumulator, currentProduct) => {
     return accumulator + currentProduct.quantity * currentProduct.price;
 }, 0) : 0;
+const subtotal = document.querySelector("#subtotal-value");
+const shipmentInput = document.querySelector("#shipment-value");
+const totalOrderfield = document.querySelector("#total-order-value");
+
+window.addEventListener("DOMContentLoaded", function(){
+    updateCart(savedProductsArray ? savedProductsArray.length : 0);
+})
 
 function searchCEP(){
     const typedCep = inputCep.value.trim().replace(/\D/g, "");
@@ -223,7 +244,12 @@ function searchCEP(){
     }).then((data) => {
         inputCity.value = data.localidade;
         inputState.value = data.uf;
-        inputNeighborhood.value = data.bairro;
+        if(data.bairro){
+            inputNeighborhood.value = data.bairro;
+            let changeEvent = new Event("change", { bubbles: true});
+            inputNeighborhood.dispatchEvent(changeEvent);
+        }
+
         inputStreet.value = data.logradouro;
     }).catch((error) => {
         console.error('Erro:', error)
@@ -309,13 +335,42 @@ function clearCart(){
     location.reload();
 }
 
-window.addEventListener("DOMContentLoaded", function(){
-    const subtotal = document.querySelector("#subtotal-value");
-    subtotal.textContent = totalOrder;
+function updateInfosOrder(){
+    if(subtotal){
+        subtotal.textContent = totalOrder
+    }
 
-    const shipmentValue = document.querySelector("#shipment-value").textContent;
+    if(shipmentInput && totalOrderfield && savedProductsArray.length > 0 && inputNeighborhood.value != ""){
+        const foundedNeighborhood = neighborhoodShipment.find(info => info.neighborhood === inputNeighborhood.value);
 
-    const totalOrderfield = document.querySelector("#total-order-value");
+        const shipmentValue = foundedNeighborhood ? foundedNeighborhood.shipment : 150;
+        shipmentInput.textContent = shipmentValue;
 
-    totalOrderfield.textContent = Number(totalOrder) + Number(shipmentValue);
-})
+        totalOrderfield.textContent = Number(subtotal.textContent) + Number(shipmentValue);
+    }
+}
+
+if(inputNeighborhood){
+    inputNeighborhood.addEventListener("change", function(){
+        updateInfosOrder();
+    })
+}
+
+const availableCoupons = [
+    {
+        value: "FREE10",
+        discout: 10
+    },
+    {
+        value: "FREE20",
+        discout: 20
+    }
+]
+
+function addCoupom(){
+    const inputCoupon = document.querySelector("#discount");
+    const validCoupon = availableCoupons.find((coupon) => coupon.value === inputCoupon.value);
+    const textCoupon = document.querySelector(".coupon-added span");
+    const errorCoupon = document.querySelector(".coupon-error");
+    errorCoupon.style.display = "none";
+}
