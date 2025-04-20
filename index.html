@@ -33,16 +33,16 @@
                     </div>
                 </div>
             </div>
-            <div class="navegation-header">
+            <div class="navigation-header">
                 <div class="logo">
                     <a href="index.html"><img src="assets/logo.svg" alt="Logo"></a>
                 </div>
                 <nav class="menu">
                     <ul>
-                        <li><a href="#">CPUs</a></li>
-                        <li><a href="#">Notebooks</a></li>
-                        <li><a href="#">Monitores</a></li>
-                        <li><a href="#">Entre em contato</a></li>
+                        <li><a href="#cpus">CPUs</a></li>
+                        <li><a href="#notebooks">Notebooks</a></li>
+                        <li><a href="#monitors">Monitores</a></li>
+                        <li><a href="#contact">Entre em contato</a></li>
                     </ul>
                 </nav>
                 <div class="action-icons">
@@ -880,39 +880,43 @@
     <section id="contact">
         <div class="container">
             <div class="general-content-form">
-                <form >
-                    <div class="titles-form">
-                        <h1>Entre em contato</h1>
-                        <p>Se você tiver qualquer dúvida, você pode ligar para a nossa loja ou enviar uma mensagem no formulário de contato abaixo!</p>
-                    </div>
-                    <div class="info-content-form">
-                        <div class="line-form">
-                            <div class="group-form">
-                                <label>Nome<span>*</span></label>
-                                <input type="text" id="name" placeholder="Nome"/>
+                <div class="intern-content-form">
+                    <form>
+                        <div class="titles-form">
+                            <h1>Entre em contato</h1>
+                            <p>Se você tiver qualquer dúvida, você pode ligar para a nossa loja ou enviar uma mensagem
+                                no formulário de contato abaixo!</p>
+                        </div>
+                        <div class="info-content-form">
+                            <div class="line-form">
+                                <div class="group-form">
+                                    <label>Nome<span>*</span></label>
+                                    <input type="text" id="name" placeholder="Nome" />
+                                </div>
+                                <div class="group-form">
+                                    <label>Assunto<span>*</span></label>
+                                    <input type="text" id="subject" placeholder="Assunto" />
+                                </div>
+                            </div>
+                            <div class="line-form">
+                                <div class="group-form">
+                                    <label>Telefone<span>*</span></label>
+                                    <input type="text" id="cellphone" placeholder="Telefone" />
+                                </div>
+                                <div class="group-form">
+                                    <label>E-mail<span>*</span></label>
+                                    <input type="email" id="email" placeholder="E-mail" />
+                                </div>
                             </div>
                             <div class="group-form">
-                                <label>Assunto<span>*</span></label>
-                                <input type="text" id="subject" placeholder="Assunto"/>
+                                <label>Mensagem<span>*</span></label>
+                                <textarea id="message" placeholder="Escreva toda a sua dúvida"></textarea>
                             </div>
                         </div>
-                        <div class="line-form">
-                            <div class="group-form">
-                                <label>Telefone<span>*</span></label>
-                                <input type="text" id="cellphone" placeholder="Telefone"/>
-                            </div>
-                            <div class="group-form">
-                                <label>E-mail<span>*</span></label>
-                                <input type="email" id="email" placeholder="E-mail"/>
-                            </div>
-                        </div>
-                        <div class="group-form">
-                            <label>Mensagem<span>*</span></label>
-                            <textarea id="message" placeholder="Escreva toda a sua dúvida"></textarea>
-                        </div>
-                    </div>
-                    <input type="submit" value="Enviar"/>
-                </form>
+                        <input type="submit" value="Enviar" />
+                    </form>
+                    <p id="loading">Carregando..</p>
+                </div>
                 <div class="infos-contact">
                     <div class="line-contact-info">
                         <img src="assets/address-icon.svg" alt="Endereço">
@@ -955,8 +959,8 @@
                     <h2>Fique por dentro das melhores ofertas da loja</h2>
                 </div>
                 <div class="input-form-newsletter">
-                    <input type="text" id="newsletter-email" placeholder="Seu email" class="input-newsletter"/>
-                    <input type="submit" value="Enviar"/>
+                    <input type="text" id="newsletter-email" placeholder="Seu email" class="input-newsletter" />
+                    <input type="submit" value="Enviar" />
                 </div>
             </div>
             <div class="infos-footer">
@@ -987,7 +991,7 @@
         </div>
     </footer>
 
-    <p>Semana 8 - Parei em: 31:20</p>
+    <p>Semana 8 - Parei em: 47:00</p>
     <script src="script.js"></script>
 </body>
 

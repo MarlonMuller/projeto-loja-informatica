@@ -33,13 +33,13 @@
                     </div>
                 </div>
             </div>
-            <div class="navegation-header">
+            <div class="navigation-header">
                 <div class="logo">
                     <a href="index.html"><img src="assets/logo.svg" alt="Logo"></a>
                 </div>
                 <nav class="menu">
                     <ul>
-                        <li><a href="#">CPUs</a></li>
+                        <li><a href="#">cpus</a></li>
                         <li><a href="#">Notebooks</a></li>
                         <li><a href="#">Monitores</a></li>
                         <li><a href="#">Entre em contato</a></li>
@@ -140,7 +140,7 @@
                         </table>
                         <div class="send-order">
                             <input type="button" value="Limpar carrinho" onclick="clearCart()"/>
-                            <input type="button" value="Reservar pedido" onclick="finishOrder()"/>
+                            <input type="button" value="Reservar pedido" onclick="finishOrder()" id="send-order" class="disabled-send-order"/>
                         </div>
                     </div>
                 </div>
@@ -153,7 +153,7 @@
                         <input type="button" value="Adicionar" onclick="addCoupon()"/>
                     </div>
                     <span class="coupon-error">Cupom inexistente ou inválido</span>
-                    <div class="coupom-added">
+                    <div class="coupon-added">
                         <h4>Cupom adicionado:</h4>
                         <span></span>
                     </div>

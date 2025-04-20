@@ -46,7 +46,7 @@ header {
     gap: 10px;
 }
 
-.navegation-header {
+.navigation-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -605,6 +605,14 @@ footer .container {
 
 .send-order input[type="button"] {
     margin-top: 30px;
+}
+
+.disabled-send-order {
+    background-color: #66666666 !important;
+    opacity: 0.8;
+    cursor: not-allowed;
+    box-shadow: none;
+    pointer-events: none;
 }
 
 table {
