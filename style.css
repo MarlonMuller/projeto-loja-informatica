@@ -264,6 +264,14 @@ header {
 
 /* Estilos para produtos */
 
+.title-section-products {
+    font-size: 18px;
+    color: #0000006a;
+    border-bottom: 1px solid #a2adb0;
+    margin-bottom: 20px;
+    display: none;
+}
+
 .product-filter-brands ul {
     display: flex;
 }
@@ -706,6 +714,16 @@ tbody tr td:first-child {
     font-size: 18px;
 }
 
+.info-products-order-mobile ul{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #a2a6b0;
+}
+
+.info-products-order-mobile ul li{
+    list-style: none;
+    font-weight: bold;
+}
 
 /* Estilos para telas médias */
 
@@ -800,9 +818,17 @@ tbody tr td:first-child {
         align-items: center;
         gap: 20px;
     }
+
+    .product-cover {
+        display: none;
+    }
+
+    .title-section-products {
+        display: block;
+    }
 }
 
-@media screen and (max-width: 768px) {content-contact-form
+@media screen and (max-width: 768px) {
     .general-content-card-products {
         display: flex;
         flex-direction: column;
