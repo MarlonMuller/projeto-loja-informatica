@@ -714,6 +714,10 @@ tbody tr td:first-child {
     font-size: 18px;
 }
 
+.info-products-order-mobile {
+    display: none;
+}
+
 .info-products-order-mobile ul{
     display: flex;
     flex-direction: column;
@@ -723,6 +727,16 @@ tbody tr td:first-child {
 .info-products-order-mobile ul li{
     list-style: none;
     font-weight: bold;
+}
+
+.info-products-order-mobile img {
+    width: 50px;
+    height: 50px;
+}
+
+.info-products-order-mobile span {
+    font-weight: normal;
+    margin-left: 10px;
 }
 
 /* Estilos para telas médias */
@@ -824,6 +838,14 @@ tbody tr td:first-child {
     }
 
     .title-section-products {
+        display: block;
+    }
+
+    table{
+        display: none;
+    }
+
+    .info-products-order-mobile {
         display: block;
     }
 }

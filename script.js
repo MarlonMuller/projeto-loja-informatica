@@ -287,6 +287,31 @@ window.addEventListener("DOMContentLoaded", function () {
             tbody.appendChild(row);
         }
     }
+    const sectionProductsMobile = document.querySelector(".info-products-order-mobile");
+
+    if(sectionProductsMobile && savedProductsArray){
+        for(const product of savedProductsArray){
+            const ul = this.document.createElement("ul");
+            const nameProduct = document.createElement("li");
+            nameProduct.innerHTML = `Item: <span>${product.productName} <img src="${product.productImg}" alt="${product.productName}" width="100px"/></span>`;
+
+            const priceProduct = document.createElement("li");
+            priceProduct.innerHTML = `Preço: <span>R$ ${product.price.toFixed(2)}</span>`
+            
+            const quantityProduct = document.createElement("li");
+            quantityProduct.innerHTML = `Qtde: <span>${product.quantity}</span>`
+            
+            const subtotalProduct = document.createElement("li");
+            const subtotalP = product.price * product.quantity;
+            subtotalProduct.innerHTML = `Subtotal: <span>R$ ${subtotalP.toFixed(2)}</span>`
+
+            ul.appendChild(nameProduct);
+            ul.appendChild(priceProduct);
+            ul.appendChild(quantityProduct);
+            ul.appendChild(subtotalProduct);
+            sectionProductsMobile.appendChild(ul);
+        }
+    }
 
 })
 
